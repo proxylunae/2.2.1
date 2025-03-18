@@ -16,7 +16,8 @@ public class Car { // добавлен entity
         this.series = series;
     }
 
-    public Car() {}
+    public Car() {
+    }
 
     public String getModel() {
         return model;
@@ -29,6 +30,7 @@ public class Car { // добавлен entity
     public Long getId() {
         return id;
     }
+
     public String toString() {
         return model + " " + series;
     }

@@ -14,8 +14,11 @@ import java.util.List;
 @Repository
 public class UserDaoImp implements UserDao {
 
-   @Autowired
-   private SessionFactory sessionFactory;
+   private final SessionFactory sessionFactory;
+
+   public UserDaoImp(SessionFactory sessionFactory) { // внедрение через конструктор
+      this.sessionFactory = sessionFactory;
+   }
 
    @Override
    public void add(User user) {
@@ -28,13 +31,12 @@ public class UserDaoImp implements UserDao {
       TypedQuery<User> query=sessionFactory.getCurrentSession().createQuery("from User");
       return query.getResultList();
    }
-   @Override
-   @Transactional
+   @Override // transactional -> только в service
    public User getUserById(Long id) {
       return sessionFactory.getCurrentSession().get(User.class, id);
    }
+
    @Override
-   @Transactional
    public User getUserByCar(String model, int series) { // получение юзера по car
       Session session = sessionFactory.getCurrentSession();
       return session.createQuery(
